@@ -1,9 +1,9 @@
 <template>
   <base-card>
-    <form action="" @submit.prevent="addResource">
+    <form action="" @submit.prevent="submitData">
       <div class="form-control">
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" v-model="titleInput" />
+        <input type="text" id="title" name="title" ref="titleInput" />
       </div>
 
       <div class="form-control">
@@ -12,13 +12,13 @@
           name="description"
           id="description"
           rows="3"
-          v-model="descInput"
+          ref="descInput"
         ></textarea>
       </div>
 
       <div class="form-control">
         <label for="link">Link</label>
-        <input type="url" id="link" name="link" v-model="linkInput" />
+        <input type="url" id="link" name="link" ref="linkInput" />
       </div>
 
       <div class="form-control">
@@ -30,26 +30,36 @@
 
 <script>
 export default {
-  data() {
-    return {
-      titleInput: "",
-      descInput: "",
-      linkInput: "",
-    };
-  },
+  // data() {
+  //   return {
+  //     titleInput: "",
+  //     descInput: "",
+  //     linkInput: "",
+  //   };
+  // },
+
+  inject: ["addResource"],
 
   methods: {
-    addResource() {
-      const resource = {
-        id: Date.now().toString(),
-        title: this.titleInput,
-        description: this.descInput,
-        link: this.linkInput,
-      };
-      this.$emit("add-resource", resource);
-      this.titleInput = "";
-      this.descInput = "";
-      this.linkInput = "";
+    // addResource() {
+    //   const resource = {
+    //     id: Date.now().toString(),
+    //     title: this.titleInput,
+    //     description: this.descInput,
+    //     link: this.linkInput,
+    //   };
+    //   this.$emit("add-resource", resource);
+    //   this.titleInput = "";
+    //   this.descInput = "";
+    //   this.linkInput = "";
+    // },
+
+    submitData() {
+      const enteredTitle = this.$refs.titleInput.value;
+      const enteredDescription = this.$refs.descInput.value;
+      const enteredUrl = this.$refs.linkInput.value;
+
+      this.addResource(enteredTitle, enteredDescription, enteredUrl);
     },
   },
 };
