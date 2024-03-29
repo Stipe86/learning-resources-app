@@ -26,40 +26,48 @@
       </div>
     </form>
   </base-card>
+
+  <base-dialog v-if="inputIsInvalid">
+    <h2>Invalid Input</h2>
+    <p>Unfortunately, at least one input value is Invalid.</p>
+    <p>
+      Please check all inputs and make sure you enter at least a few characters
+      into each input field.
+    </p>
+    <button @click="confirmError">Okay</button>
+  </base-dialog>
 </template>
 
 <script>
 export default {
-  // data() {
-  //   return {
-  //     titleInput: "",
-  //     descInput: "",
-  //     linkInput: "",
-  //   };
-  // },
+  data() {
+    return {
+      inputIsInvalid: false,
+    };
+  },
 
   inject: ["addResource"],
 
   methods: {
-    // addResource() {
-    //   const resource = {
-    //     id: Date.now().toString(),
-    //     title: this.titleInput,
-    //     description: this.descInput,
-    //     link: this.linkInput,
-    //   };
-    //   this.$emit("add-resource", resource);
-    //   this.titleInput = "";
-    //   this.descInput = "";
-    //   this.linkInput = "";
-    // },
-
     submitData() {
       const enteredTitle = this.$refs.titleInput.value;
       const enteredDescription = this.$refs.descInput.value;
       const enteredUrl = this.$refs.linkInput.value;
 
+      if (
+        enteredTitle.trim() === "" ||
+        enteredDescription.trim() === "" ||
+        enteredUrl.trim() === ""
+      ) {
+        this.inputIsInvalid = true;
+        return;
+      }
+
       this.addResource(enteredTitle, enteredDescription, enteredUrl);
+    },
+
+    confirmError() {
+      this.inputIsInvalid = false;
     },
   },
 };

@@ -78,11 +78,6 @@ export default {
       this.storedResources.unshift(newResource);
       this.selectedTab = "stored-resources";
     },
-
-    // addResource(resource) {
-    //   this.storedResources.unshift(resource);
-    //   this.selectedTab = "stored-resources";
-    // },
   },
 };
 </script>
