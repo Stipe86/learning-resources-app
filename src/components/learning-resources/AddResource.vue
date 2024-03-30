@@ -27,7 +27,11 @@
     </form>
   </base-card>
 
-  <base-dialog v-if="inputIsInvalid" title="Invalid Input">
+  <base-dialog
+    v-if="inputIsInvalid"
+    title="Invalid Input"
+    @close="confirmError"
+  >
     <template #default>
       <p>Unfortunately, at least one input value is Invalid.</p>
       <p>
