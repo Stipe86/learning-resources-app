@@ -6,6 +6,7 @@
       :title="res.title"
       :description="res.description"
       :link="res.link"
+      @deleteResource="deleteResource(res.id)"
     ></learning-resource>
   </ul>
 </template>
@@ -19,6 +20,18 @@ export default {
   },
 
   inject: ["resources"],
+
+  methods: {
+    // deleteResource(resId) {
+    //   this.resources = this.resources.filter((res) => res.id !== resId);
+    //   console.log(this.resources.length);
+    // },
+
+    deleteResource(resId) {
+      const resIndex = this.resources.findIndex((res) => res.id === resId);
+      this.resources.splice(resIndex, 1);
+    },
+  },
 };
 </script>
 
